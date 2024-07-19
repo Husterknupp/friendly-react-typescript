@@ -9,7 +9,7 @@ const config = {
   clearMocks: true,
 
   // The test environment that will be used for testing
-  testEnvironment: "node",
+  testEnvironment: "jsdom",
 };
 
 // IntelliJ doesn't know that this export actually *is used*

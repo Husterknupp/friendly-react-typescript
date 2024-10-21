@@ -22,7 +22,7 @@ function App() {
         <ClickMe />
         <button
           onClick={() => {
-            setCount((count) => count + 1);
+            setCount(addOne);
           }}
         >
           count is {count}
@@ -36,6 +36,10 @@ function App() {
       </p>
     </>
   );
+}
+
+function addOne(count: number) {
+  return count + 1;
 }
 
 export default App;

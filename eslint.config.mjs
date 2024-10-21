@@ -17,7 +17,6 @@ const compat = new FlatCompat({
 
 export default [
   {
-    //   files: ["*/*.ts", "*/*.tsx"],
     ignores: [
       ".history/**",
       "dist/",
@@ -25,17 +24,12 @@ export default [
       "jest.config.js",
       "jest-fileTransformer.js",
       "**/vite.config.ts",
-      // "**/.eslintrc.cjs",
     ],
   },
 
   ...fixupConfigRules(compat.extends("eslint:recommended")),
-  // ...fixupConfigRules(compat.extends("eslint:recommended")).map((config) => {
-  //   return { ...config, ignores: ["vite.config.ts"] };
-  // }),
   ...fixupConfigRules(
     compat.extends(
-      // "eslint:recommended",
       "plugin:@typescript-eslint/strict-type-checked",
       "plugin:@typescript-eslint/stylistic-type-checked",
       "plugin:react/recommended",
@@ -44,7 +38,7 @@ export default [
     ),
   ),
   {
-    files: ["*/*.ts", "*/*.tsx"],
+    files: ["**/*.ts", "**/*.tsx"],
 
     plugins: {
       "react-refresh": reactRefresh,

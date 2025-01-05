@@ -8,7 +8,8 @@
     "test": "jest",
     "build": "tsc --build && vite build",
     "lint": "eslint . --report-unused-disable-directives --max-warnings 0 && prettier --check .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "eslint-rules-overview": "node eslint-script-rules-overview.js"
   },
   "dependencies": {
     "react": "^18.3.1",

@@ -14,3 +14,9 @@ jobs:
       - run: npm run test
       - run: npm run build
       - run: npm run lint
+      - name: check for changed eslint config
+        run: |
+          npm run eslint-rules-overview
+          git status --porcelain
+          STATUS=$(git status --porcelain)
+          if [[ ! $STATUS ]]; then echo "empty"; else git --no-pager diff && exit 1; fi

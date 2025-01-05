@@ -3,7 +3,7 @@ import fs from "fs";
 
 function createOverviewFiles() {
   const eslintConfig = JSON.parse(
-    execSync("npx eslint --print-config src/App.tsx").toString()
+    execSync("npx eslint --print-config src/App.tsx").toString(),
   );
 
   const warningRules = {};
@@ -35,11 +35,11 @@ function createOverviewFiles() {
 
   fs.writeFileSync(
     "eslint-active-errors.json",
-    JSON.stringify(errorRules, null, 2)
+    JSON.stringify(errorRules, null, 2),
   );
   fs.writeFileSync(
     "eslint-active-warnings.json",
-    JSON.stringify(warningRules, null, 2)
+    JSON.stringify(warningRules, null, 2),
   );
 }
 

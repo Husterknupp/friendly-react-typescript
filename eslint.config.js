@@ -20,10 +20,11 @@ export default [
     ignores: [
       ".history/**",
       "dist/",
-      "eslint.config.mjs",
+      "eslint.config.js",
       "jest.config.js",
       "jest-fileTransformer.js",
       "**/vite.config.ts",
+      "eslint-script-rules-overview.js",
     ],
   },
 

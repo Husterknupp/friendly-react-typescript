@@ -1,0 +1,7 @@
+{
+  "react-hooks/exhaustive-deps": ["warning"],
+  "react-refresh/only-export-components": [
+    "warning",
+    { "allowConstantExport": true }
+  ]
+}

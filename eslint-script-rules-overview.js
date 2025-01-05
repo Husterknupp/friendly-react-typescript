@@ -1,5 +1,6 @@
 import { execSync } from "child_process";
 import fs from "fs";
+import prettier from "prettier";
 
 function createOverviewFiles() {
   const eslintConfig = JSON.parse(
@@ -20,6 +21,11 @@ function createOverviewFiles() {
         case 1:
           warningRules[rule] = ["warning", ...options];
           break;
+        case 0:
+          // ignore because it's disabled
+          break;
+        default:
+          throw new Error(`unknown severity: '${severity}' for rule '${rule}'`);
       }
     } else {
       switch (configValue) {
@@ -29,18 +35,31 @@ function createOverviewFiles() {
         case 1:
           warningRules[rule] = "warning";
           break;
+        case 0:
+          // ignore because it's disabled
+          break;
+        default:
+          throw new Error(
+            `unknown severity: '${configValue}' for rule '${rule}'`,
+          );
       }
     }
   }
+  prettier
+    .format(JSON.stringify(errorRules), {
+      parser: "json",
+    })
+    .then((formattedString) => {
+      fs.writeFileSync("eslint-active-errors.json", formattedString);
+    });
 
-  fs.writeFileSync(
-    "eslint-active-errors.json",
-    JSON.stringify(errorRules, null, 2),
-  );
-  fs.writeFileSync(
-    "eslint-active-warnings.json",
-    JSON.stringify(warningRules, null, 2),
-  );
+  prettier
+    .format(JSON.stringify(warningRules), {
+      parser: "json",
+    })
+    .then((formattedString) => {
+      fs.writeFileSync("eslint-active-warnings.json", formattedString);
+    });
 }
 
 createOverviewFiles();

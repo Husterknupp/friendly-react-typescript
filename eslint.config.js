@@ -2,6 +2,11 @@ import globals from "globals";
 import pluginJs from "@eslint/js";
 import tseslint from "typescript-eslint";
 import pluginReact from "eslint-plugin-react";
+import { fixupConfigRules } from "@eslint/compat";
+import { FlatCompat } from "@eslint/eslintrc";
+import reactRefresh from "eslint-plugin-react-refresh";
+
+const compat = new FlatCompat();
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
@@ -29,9 +34,16 @@ export default [
       },
     },
   },
-  //   todo 'react/react-in-jsx-scope' to be disabled
   pluginReact.configs.flat.recommended,
-  //   todo enable
-  // react-hooks/exhaustive-deps
-  // react-refresh/only-export-components
+  pluginReact.configs.flat["jsx-runtime"] /* if you are using React 17+ */,
+  {
+    settings: {
+      react: {
+        version: "detect",
+      },
+    },
+  },
+
+  ...fixupConfigRules(compat.extends("plugin:react-hooks/recommended")),
+  reactRefresh.configs.recommended,
 ];

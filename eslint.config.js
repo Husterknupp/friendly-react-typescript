@@ -1,20 +1,14 @@
-import { fixupConfigRules } from "@eslint/compat";
-import reactRefresh from "eslint-plugin-react-refresh";
 import globals from "globals";
-import tsParser from "@typescript-eslint/parser";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-import js from "@eslint/js";
+import pluginJs from "@eslint/js";
+import tseslint from "typescript-eslint";
+import pluginReact from "eslint-plugin-react";
+import { fixupConfigRules } from "@eslint/compat";
 import { FlatCompat } from "@eslint/eslintrc";
+import reactRefresh from "eslint-plugin-react-refresh";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-  recommendedConfig: js.configs.recommended,
-  allConfig: js.configs.all,
-});
+const compat = new FlatCompat();
 
+/** @type {import('eslint').Linter.Config[]} */
 export default [
   {
     ignores: [
@@ -27,53 +21,29 @@ export default [
       "eslint-script-rules-overview.js",
     ],
   },
-
-  ...fixupConfigRules(compat.extends("eslint:recommended")),
-  ...fixupConfigRules(
-    compat.extends(
-      "plugin:@typescript-eslint/strict-type-checked",
-      "plugin:@typescript-eslint/stylistic-type-checked",
-      "plugin:react/recommended",
-      "plugin:react-hooks/recommended",
-      "plugin:react/jsx-runtime",
-    ),
-  ),
+  { files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"] },
+  { languageOptions: { globals: globals.browser } },
+  pluginJs.configs.recommended,
+  ...tseslint.configs.strictTypeChecked,
+  ...tseslint.configs.stylisticTypeChecked,
   {
-    files: ["**/*.ts", "**/*.tsx"],
-
-    plugins: {
-      "react-refresh": reactRefresh,
-    },
-
     languageOptions: {
-      globals: {
-        ...globals.browser,
-      },
-
-      parser: tsParser,
-      ecmaVersion: "latest",
-      sourceType: "module",
-
       parserOptions: {
         projectService: true,
-        project: ["./tsconfig.json", "./tsconfig.node.json"],
-        tsconfigRootDir: __dirname,
+        tsconfigRootDir: import.meta.dirname,
       },
     },
-
+  },
+  pluginReact.configs.flat.recommended,
+  pluginReact.configs.flat["jsx-runtime"] /* if you are using React 17+ */,
+  {
     settings: {
       react: {
         version: "detect",
       },
     },
-
-    rules: {
-      "react-refresh/only-export-components": [
-        "warn",
-        {
-          allowConstantExport: true,
-        },
-      ],
-    },
   },
+
+  ...fixupConfigRules(compat.extends("plugin:react-hooks/recommended")),
+  reactRefresh.configs.recommended,
 ];

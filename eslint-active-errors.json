@@ -40,7 +40,7 @@
   "no-prototype-builtins": ["error"],
   "no-regex-spaces": ["error"],
   "no-self-assign": ["error", { "props": true }],
-  "no-shadow-restricted-names": ["error"],
+  "no-shadow-restricted-names": ["error", { "reportGlobalThis": false }],
   "no-sparse-arrays": ["error"],
   "no-unexpected-multiline": ["error"],
   "no-unsafe-finally": ["error"],
@@ -52,7 +52,7 @@
   "no-unused-private-class-members": ["error"],
   "no-useless-backreference": ["error"],
   "no-useless-catch": ["error"],
-  "no-useless-escape": ["error"],
+  "no-useless-escape": ["error", { "allowRegexCharacters": [] }],
   "require-yield": ["error"],
   "use-isnan": [
     "error",

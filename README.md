@@ -13,7 +13,7 @@ A minimal-yet-practical React 19 + TypeScript + Vite starter that keeps its tool
 ## Requirements
 
 - Node.js `v22` LTS (defined in `.nvmrc`)
-- npm 10+ (bundled with Node 20)
+- npm 10+ (bundled with Node 22)
 
 If you use `nvm`, run `nvm use` to switch to the correct runtime before installing dependencies.
 

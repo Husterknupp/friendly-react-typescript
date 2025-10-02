@@ -34,7 +34,7 @@
     }
   ],
   "no-loss-of-precision": ["error"],
-  "no-misleading-character-class": ["error"],
+  "no-misleading-character-class": ["error", { "allowEscape": false }],
   "no-nonoctal-decimal-escape": ["error"],
   "no-octal": ["error"],
   "no-prototype-builtins": ["error"],

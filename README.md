@@ -58,4 +58,3 @@ After upgrading dependencies (manually or via Dependabot):
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
-
